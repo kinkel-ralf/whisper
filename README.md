@@ -1,3 +1,8 @@
+# Purpose of Fork
+I want to help highly deaf people learn speaking, by providing a feedback loop for pronounciation. 
+For now I adjusted Whisper to output probabilities instead of the most likely text. 
+This way people with hearing problems can pronounce the word again and again optimizing the assigned probability / logit of the word.
+
 # Whisper
 
 [[Blog]](https://openai.com/blog/whisper)
