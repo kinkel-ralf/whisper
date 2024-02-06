@@ -702,12 +702,30 @@ class DecodingTask:
                 # expand the tokens tensor with the selected next tokens
                 tokens, completed = self.decoder.update(tokens, logits, sum_logprobs)
 
+
+
+
+                # ADDITIONAL DEBUGGING
+                #print(logits.shape, tokens.shape, tokens)
+                most_recent_token = int(tokens[0, -1])
+                text_token = self.tokenizer.decode(tokens[0, -2:-1]) #print(texts: List[str] = [tokenizer.decode(t).strip() for t in tokens]
+                #print(text_token, most_recent_token)
+                #print(logits[0, most_recent_token])
+                #print(sum_logprobs)
+                probabilities = torch.softmax(logits[0, :], dim=0)
+                #print(probabilities.shape, probabilities.sum())
+
+                print(text_token, probabilities[most_recent_token].item(), sum_logprobs)
+                #from pdb import set_trace; set_trace()
+
+
+
                 if completed or tokens.shape[-1] > self.n_ctx:
                     break
         finally:
             self.inference.cleanup_caching()
 
-        return tokens, sum_logprobs, no_speech_probs
+        return tokens, sum_logprobs, no_speech_probs#, logits
 
     @torch.no_grad()
     def run(self, mel: Tensor) -> List[DecodingResult]:
@@ -735,6 +753,7 @@ class DecodingTask:
 
         # call the main sampling loop
         tokens, sum_logprobs, no_speech_probs = self._main_loop(audio_features, tokens)
+        print('end of main loop')
 
         # reshape the tensors to have (n_audio, n_group) as the first two dimensions
         audio_features = audio_features[:: self.n_group]
