@@ -17,12 +17,13 @@ It's really hard for highly deaf people to learn pronounciation, as they lack th
 Some changes were made to make Whisper fit the pronouncation training task better.
 
 ## Changes
-Core functionality: The _main_loop in decoding.py checks if the no_speech_prob is < 0.4 (current threshold), if that is the case, it then accumulates tokens (accumulation with lower_case and removing spaces) to output probabilities of the top 5. It also kicks out empty tokens or special tokens like "|start_of_recording|".
+Core functionality: The _main_loop in decoding.py checks if the no_speech_prob is < 0.4 (current threshold), if that is the case, it then accumulates tokens (accumulation with lower_case and removing spaces) to output probabilities of the top 5. It also kicks out empty tokens or special tokens like "|start_of_recording|". It then plots the probabilities as bar charts.
 
 Example with 6 predictions and top 2 being displayed:
 "this":0.1, " this ":0.2, "This":0.1, "THIS":0.1, "here":0.1, "":0.4
 => Display "this":0.6, "here":0.1
 
+Some other changes 
 
 # Whisper 
 ### (original documentation starts here)
