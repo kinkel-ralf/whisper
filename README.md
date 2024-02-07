@@ -14,7 +14,7 @@ It's really hard for highly deaf people to learn pronounciation, as they lack th
 
 3. English words might not be ideal for learning speaking, there is the International Phonetic Alphabet (IPA) which I think is more promising, as you have perfect alignment there between how words are written and pronounced. I think a character level IPA speech-to-text model would be ideal for this learning purpose.
 
-Some changes were made to make it fit better.
+Some changes were made to make Whisper fit the pronouncation training task better.
 
 ## Changes
 Core functionality: The _main_loop in decoding.py checks if the no_speech_prob is < 0.4 (current threshold), if that is the case, it then accumulates tokens (accumulation with lower_case and removing spaces) to output probabilities of the top 5. It also kicks out empty tokens or special tokens like "|start_of_recording|".
