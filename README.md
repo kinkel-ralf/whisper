@@ -12,10 +12,20 @@ It's really hard for highly deaf people to learn pronounciation, as they lack th
 
 2. Training set skewed towards transcription -> Single words are almost not in the training set, it's unlikely that only "Should." is in the training set, what might be in the training set a few times is "Shoot!". So it's almost impossible to make it recognizing 'should' instead of 'shoot' if you don't add text afterwards.
 
+3. English words might not be ideal for learning speaking, there is the International Phonetic Alphabet (IPA) which I think is more promising, as you have perfect alignment there between how words are written and pronounced. I think a character level IPA speech-to-text model would be ideal for this learning purpose.
+
+Some changes were made to make it fit better.
+
 ## Changes
+Core functionality: The _main_loop in decoding.py checks if the no_speech_prob is < 0.4 (current threshold), if that is the case, it then accumulates tokens (accumulation with lower_case and removing spaces) to output probabilities of the top 5. It also kicks out empty tokens or special tokens like "|start_of_recording|".
+
+Example with 6 predictions and top 2 being displayed:
+"this":0.1, " this ":0.2, "This":0.1, "THIS":0.1, "here":0.1, "":0.4
+=> Display "this":0.6, "here":0.1
 
 
-# Whisper
+# Whisper 
+### (original documentation starts here)
 
 [[Blog]](https://openai.com/blog/whisper)
 [[Paper]](https://arxiv.org/abs/2212.04356)
