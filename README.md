@@ -1,12 +1,12 @@
 # Purpose of Fork
 I want to help highly deaf people learn speaking, by providing a feedback loop for pronounciation. 
-For now I adjusted Whisper to output probabilities instead of the most likely text. 
+For now I adjusted Whisper to output probabilities instead of only the most likely text. 
 This way people with hearing problems can pronounce the word again and again optimizing the assigned probability / logit of the word.
 
 Forked from [OpenAI Whisper](https://github.com/openai/whisper), real-time implementation from [whisper_real_time](https://github.com/davabase/whisper_real_time/tree/master).
 
 ## Background
-It's really hard for highly deaf people to learn pronounciation, as they lack the feedback loop of hearing. This can lead to people losing their hearing do digress in speech, but it is even harder for people born deaf to learn speaking in the first place, hear is an [example from YouTube](https://www.youtube.com/watch?v=3V95p7EtGCI). Around 1/1000 people suffer from profound prelingual deafness. I think the feedback loop from speech-to-text models could be a great opportunity. One problem is that Whisper was not developed for this, so has some problems when used as pronounciation trainer. 
+It's really hard for highly deaf people to learn pronounciation, as they lack the feedback loop of hearing. People losing their hearing might digress in speech, but it is even harder for people born deaf to learn speaking in the first place, here is an example of someone born deaf speaking [YouTube](https://www.youtube.com/watch?v=3V95p7EtGCI). Around 1/1000 people suffer from profound prelingual deafness. I think the feedback loop from speech-to-text models could be a great opportunity. One problem is that Whisper was not developed for this, so has some problems when used as pronounciation trainer. 
 
 1. Using context -> This is great for transcriptions but for learning purposes, we would like for the model to not take into consideration the context too much. For the sentence "One the beach there are many grains of ...", the model would likely assign very high probability to "sand" even if mispronounced completely.
 
