@@ -10,7 +10,7 @@ It's really hard for highly deaf people to learn pronounciation, as they lack th
 
 1. Using context -> This is great for transcriptions but for learning purposes, we would like for the model to not take into consideration the context too much. For the sentence "One the beach there are many grains of ...", the model would likely assign very high probability to "sand" even if mispronounced completely.
 
-2. 
+2. Training set skewed towards transcription -> Single words are almost not in the training set, it's unlikely that only "Should." is in the training set, what might be in the training set a few times is "Shoot!". So it's almost impossible to make it recognizing 'should' instead of 'shoot' if you don't add text afterwards.
 
 ## Changes
 
