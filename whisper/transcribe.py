@@ -182,6 +182,7 @@ def transcribe(
         decode_result = None
 
         for t in temperatures:
+            print(t)
             kwargs = {**decode_options}
             if t > 0:
                 # disable beam_size and patience when t > 0
