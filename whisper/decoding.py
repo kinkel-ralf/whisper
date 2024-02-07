@@ -11,6 +11,10 @@ from .audio import CHUNK_LENGTH
 from .tokenizer import Tokenizer, get_tokenizer
 from .utils import compression_ratio
 
+# ADDED IMPORTS
+from collections import defaultdict
+import matplotlib.pyplot as plt
+
 if TYPE_CHECKING:
     from .model import Whisper
 
@@ -691,6 +695,7 @@ class DecodingTask:
                 ):  # save no_speech_probs
                     probs_at_sot = logits[:, self.sot_index].float().softmax(dim=-1)
                     no_speech_probs = probs_at_sot[:, self.tokenizer.no_speech].tolist()
+                #print(f'No speech prob: {no_speech_probs}')
 
                 # now we need to consider the logits at the last token only
                 logits = logits[:, -1]
@@ -703,22 +708,58 @@ class DecodingTask:
                 tokens, completed = self.decoder.update(tokens, logits, sum_logprobs)
 
 
+                # ADDED PROBABILITY DISTRIBUTION VISAULIZATION
+                # Print the top 5 predictions with their probabilities
+                if no_speech_probs[0] < 0.4:
+                    #from pdb import set_trace; set_trace()
 
+                    print(f"Top 5 predictions with highest logit = {logits[0, :].max()}:")
+                    # Compute probabilities using softmax
+                    probabilities = torch.softmax(logits[0, :], dim=0)
 
-                # ADDITIONAL DEBUGGING
-                #print(logits.shape, tokens.shape, tokens)
-                most_recent_token = int(tokens[0, -1])
-                text_token = self.tokenizer.decode(tokens[0, -2:-1]) #print(texts: List[str] = [tokenizer.decode(t).strip() for t in tokens]
-                #print(text_token, most_recent_token)
-                #print(logits[0, most_recent_token])
-                #print(sum_logprobs)
-                probabilities = torch.softmax(logits[0, :], dim=0)
-                #print(probabilities.shape, probabilities.sum())
+                    # Get the top 5 probabilities and their indices
+                    top_probs, top_idxs = torch.topk(probabilities, 20)
+                    
+                    # Decode the indices to tokens
+                    top_tokens = [self.tokenizer.decode([idx.item()]) for idx in top_idxs]
+                
+                    # If top 5 tokens are all non-speech tokens, break
+                    if all([not token.strip().isalnum() for token in top_tokens[:5]]):
+                       print('No speech detected or just spaces detected.')
+                       
+                    else:
+                        token_dict = defaultdict(float)
+                        for token, prob in zip(top_tokens, top_probs):
+                            token = token.strip().lower()
+                            prob = prob.item()
+                            if token.isalnum():
+                                #print(f"Token: '{token}', Probability: {prob, }, {token==''}")
+                                token_dict[token] += prob
+                            if len(token_dict) == 5:
+                                break
 
-                print(text_token, probabilities[most_recent_token].item(), sum_logprobs)
-                #from pdb import set_trace; set_trace()
+                        #for token, prob in token_dict.items():
+                        #print(f"Token: '{token}', Probability: {prob}")
+                        # Plot the probabilities
+                        token_show = list(token_dict.keys())
+                        probabilities_show = list(token_dict.values())
+                        positions_show = range(len(token_show))  # Numeric positions for each bar
 
+                        # Set up Matplotlib plot
+                        plt.figure(figsize=(10, 6))  # Set the figure size
+                        plt.bar(positions_show, probabilities_show, color='skyblue')  # Create a bar chart at the specified positions
 
+                        # Customize the x-axis
+                        plt.xticks(positions_show, token_show, rotation=45, ha="right")  # Set the x-axis labels to the tokens, rotate for readability
+
+                        # Labels and title
+                        plt.xlabel('Tokens')  # X-axis label
+                        plt.ylabel('Probability')  # Y-axis label
+                        plt.title('Token Probabilities')  # Chart title
+
+                        # Display the plot
+                        plt.tight_layout()  # Adjust layout
+                        plt.show()
 
                 if completed or tokens.shape[-1] > self.n_ctx:
                     break
