@@ -5,10 +5,10 @@ This way people with hearing problems can pronounce the word again and again opt
 
 Forked from [OpenAI Whisper](https://github.com/openai/whisper), real-time implementation from [whisper_real_time](https://github.com/davabase/whisper_real_time/tree/master).
 
-# Background
+## Background
 
 
-# Changes
+## Changes
 
 
 # Whisper
