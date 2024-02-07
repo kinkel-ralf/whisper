@@ -2,7 +2,14 @@
 I want to help highly deaf people learn speaking, by providing a feedback loop for pronounciation. 
 For now I adjusted Whisper to output probabilities instead of the most likely text. 
 This way people with hearing problems can pronounce the word again and again optimizing the assigned probability / logit of the word.
-Forked from [OpenAI Whisper](https://github.com/openai/whisper)
+
+Forked from [OpenAI Whisper](https://github.com/openai/whisper), real-time implementation from [whisper_real_time](https://github.com/davabase/whisper_real_time/tree/master).
+
+# Background
+
+
+# Changes
+
 
 # Whisper
 
@@ -12,6 +19,7 @@ Forked from [OpenAI Whisper](https://github.com/openai/whisper)
 [[Colab example]](https://colab.research.google.com/github/openai/whisper/blob/master/notebooks/LibriSpeech.ipynb)
 
 Whisper is a general-purpose speech recognition model. It is trained on a large dataset of diverse audio and is also a multitasking model that can perform multilingual speech recognition, speech translation, and language identification.
+[come_to_decide.json](https://github.com/kinkel-ralf/whisper_probability/files/14201415/come_to_decide.json)
 
 
 ## Approach
