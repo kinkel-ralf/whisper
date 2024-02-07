@@ -6,7 +6,7 @@ This way people with hearing problems can pronounce the word again and again opt
 Forked from [OpenAI Whisper](https://github.com/openai/whisper), real-time implementation from [whisper_real_time](https://github.com/davabase/whisper_real_time/tree/master).
 
 ## Background
-
+It's really hard for highly deaf people to learn pronounciation, as they lack the feedback loop of hearing. This can lead to people losing their hearing do digress in speech, but it is even harder for people born deaf to learn speaking in the first place, hear is an [example from YouTube](https://www.youtube.com/watch?v=3V95p7EtGCI).
 
 ## Changes
 
