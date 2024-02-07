@@ -12,7 +12,7 @@ It's really hard for highly deaf people to learn pronounciation, as they lack th
 
 2. Training set skewed towards transcription -> Single words are almost not in the training set, it's unlikely that only "Should." is in the training set, what might be in the training set a few times is "Shoot!". So it's almost impossible to make it recognizing 'should' instead of 'shoot' if you don't add text afterwards.
 
-3. English words might not be ideal for learning speaking, there is the International Phonetic Alphabet (IPA) which I think is more promising, as you have perfect alignment there between how words are written and pronounced. I think a character level IPA speech-to-text model would be ideal for this learning purpose.
+3. English words might not be ideal for learning speaking because the pronounciation can be very misaligned with the way words are written. There is the International Phonetic Alphabet (IPA) which I think is more promising, as you have perfect alignment between how words are written and pronounced. I think a character level IPA speech-to-text model would be ideal for this learning purpose.
 
 Some changes were made to make Whisper fit the pronouncation training task better.
 
@@ -23,7 +23,7 @@ Example with 6 predictions and top 2 being displayed:
 "this":0.1, " this ":0.2, "This":0.1, "THIS":0.1, "here":0.1, "":0.4
 => Display "this":0.6, "here":0.1
 
-Some other changes 
+Some other changes are to use only 1 beam, making whisper default to GreedyDecoder, we also don't iterate through temperatures (normally when nothing is found you iterate through (0,0.2,0.4,0.6,0.8,1)).
 
 # Whisper 
 ### (original documentation starts here)
